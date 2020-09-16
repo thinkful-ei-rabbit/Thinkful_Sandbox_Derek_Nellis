@@ -1,0 +1,111 @@
+@import "./mixins/fluid-type";
+@import "./variables/font-bank";
+
+/* ========== CSS Reset ========== */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, address, big, br, cite, code, del,
+dfn, em, hr, img, ins, kbd, q, s, samp, small,
+strike, strong, sub, sup, tt, var, b, u, i,
+dl, dt, dd, ol, ul, li, button, caption, input,
+fieldset, form, label, legend, output, table,
+textarea, tbody, tfoot, thead, tr, th, td,
+article, aside, audio, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, mark, menu, nav, option, output, ruby,
+section, select, summary, time, video {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+blockquote, button, caption, dd, dt, figcaption,
+h1, h2, h3, h4, h5, h6, input, legend, option,
+output, p, pre, select, textarea {
+  display: block;
+}
+
+a, abbr, acronym, b, bdo, big, br, cite, code, del,
+dfn,em, i, ins, kbd, mark, q, samp, s, small, span,
+strike, strong, sub, sup, time, tt, var{
+  display: inline;
+}
+
+input[type=date], input[type=datetime-local],
+input[type=file], input[type=month],
+input[type=time], input[type=week], select {
+  flex-direction: row;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+  background-color: transparent;
+  background-image: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+a img, :link img, :visited img {
+  border: none;
+}
+
+:link, :visited {
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, video {
+  max-width: 100%;
+}
+
+address {
+  font-style: normal;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+[disabled] {
+  cursor: not-allowed;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.sr-only {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+
+// == Font Bank == //
+$main-font: 'Yantramanav', sans-serif; // font-weight: 100;300;==>400<==;500;700;900
+$headline-font: 'BenchNine', sans-serif; // font-weight: 300;==>400<==;700
+$code-font: 'Fira Code', monospace; // font-weight: 300;==>400<==;500;600;700
+
+* {
+  font-family: $main-font;
+}
+
+.headline {
+  font-family: $headline-font;
+}
+
+code, .code {
+  font-family: $code-font;
+}
+
+body {
+  @include fluid-type(font-size, 320px, 1400px, 18px, 28px);
+}
+
