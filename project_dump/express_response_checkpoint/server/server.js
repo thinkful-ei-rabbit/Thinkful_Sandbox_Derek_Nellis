@@ -5,7 +5,11 @@ const PLAYSTORE = require('./playstore');
 const app = express();
 
 // Validators
-const paramValidation = ('/apps', ({ query: { sort, genres } }, res, next) => {
+const paramValidation =
+  ('/apps',
+  (req, res, next) => {
+    const { sort, genres } = req.query;
+
     if (sort && sort !== 'Rating' && sort !== 'App') {
       return res.status(400).json("Sort must be 'Rating' or 'App'!");
     }
@@ -19,11 +23,7 @@ const paramValidation = ('/apps', ({ query: { sort, genres } }, res, next) => {
       'Card'
     ];
     if (genres && !allowedGenres.includes(genres)) {
-      return res
-        .status(400)
-        .json(
-          `Genres must be one of: ${allowedGenres}`
-        );
+      return res.status(400).json(`Genres must be one of: ${allowedGenres}`);
     }
 
     next();
@@ -33,8 +33,12 @@ const paramValidation = ('/apps', ({ query: { sort, genres } }, res, next) => {
 const appsHandlers = {
   handleSort: (sort, results) => {
     results = results.sort((a, b) => {
-      const curr = a[sort].toLowerCase();
-      const next = b[sort].toLowerCase();
+      let curr = a[sort];
+      let next = b[sort];
+      if (sort === 'App') {
+        curr = curr.toLowerCase();
+        next = next.toLowerCase();
+      }
       if (curr === next) return 0;
       if (sort === 'App') {
         return curr < next ? -1 : 1;
@@ -48,7 +52,8 @@ const appsHandlers = {
   }
 };
 
-app.use(morgan('dev'), paramValidation);
+app.use(morgan('dev'));
+app.use(paramValidation);
 
 app.get('/apps', (req, res) => {
   const { sort, genres } = req.query;
@@ -64,3 +69,10 @@ app.get('/apps', (req, res) => {
 app.listen(8000, () => {
   console.log('Loading . . . Running on http://localhost:8000/');
 });
+
+// module.exports = app;
+
+module.exports = {
+  paramValidation,
+  appsHandlers
+};

@@ -6,8 +6,6 @@ function divide(a, b) {
   return a / b;
 }
 
-const list = [5, 1, 2, 3, 4, 5];
-
 function sort(list) {
   for (let i = 1; i < list.length; i++) {
     let j = i;
@@ -22,4 +20,4 @@ function sort(list) {
 }
 
 module.exports = divide;
-module.exports = sort;
+// module.exports = sort;
